@@ -33,3 +33,8 @@ build/
 .vscode/
 .DS_Store
 target/
+*.zip
+.DS_Store
+node_modules/
+.vite/
+dist/
