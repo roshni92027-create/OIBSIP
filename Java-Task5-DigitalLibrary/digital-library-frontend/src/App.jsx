@@ -93,6 +93,9 @@ function App() {
         }
       />
 
+      {/* Catch-all fallback route */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+
     </Routes>
   );
 }

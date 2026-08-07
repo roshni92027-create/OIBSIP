@@ -7,6 +7,7 @@ import {
   updateDueDate,
 } from "../services/IssuedBookService";
 import { exportToPDF, exportToCSV } from "../utils/exportUtils";
+import { FaBookOpen, FaFilePdf, FaFileCsv, FaUndo, FaCalendarAlt, FaCheckCircle } from "react-icons/fa";
 
 function IssuedBooks() {
 
@@ -63,8 +64,6 @@ function IssuedBooks() {
   };
 
   const handleReturn = async (id) => {
-    // if (!window.confirm("Return this book?")) return;
-
     try {
       await returnBook(id);
       toast.success("Book returned successfully!");
@@ -93,170 +92,178 @@ function IssuedBooks() {
   return (
     <>
       <Navbar />
-      <ToastContainer />
+      <ToastContainer position="top-right" autoClose={3000} />
 
-      <div className="container mt-4">
+      <div className="container mt-4 mb-5">
 
-        <div className="card shadow">
+        <div className="card glass-card shadow-lg" style={{ borderRadius: "26px" }}>
 
-          <div className="card-header bg-primary text-white d-flex justify-content-between align-items-center flex-wrap">
-            <h3 className="mb-0">📚 Issued Books</h3>
-            <div className="d-flex gap-2 mt-2 mt-sm-0">
+          <div className="card-header card-header-gradient d-flex justify-content-between align-items-center flex-wrap gap-2 py-3">
+            <div className="d-flex align-items-center gap-2">
+              <FaBookOpen className="fs-4 text-white" />
+              <h3 className="mb-0 fs-4 fw-bold">Issued Library Books</h3>
+            </div>
+            <div className="d-flex gap-2">
               <button
-                className="btn btn-light btn-sm fw-bold"
+                className="btn btn-light btn-sm fw-bold shadow-sm"
                 onClick={handleDownloadPDF}
               >
-                📥 Download PDF
+                <FaFilePdf className="text-danger" /> Download PDF
               </button>
               <button
                 className="btn btn-outline-light btn-sm fw-bold"
                 onClick={handleExportCSV}
               >
-                📊 Export CSV
+                <FaFileCsv className="text-success" /> Export CSV
               </button>
             </div>
           </div>
 
-          <div className="card-body">
+          <div className="card-body p-4">
 
             {loading ? (
-              <h5>Loading...</h5>
+              <div className="text-center py-5">
+                <div className="spinner-border text-primary" role="status"></div>
+                <h5 className="mt-3 text-secondary">Loading Issued Books...</h5>
+              </div>
             ) : (
 
-              <table className="table table-bordered table-hover">
+              <div className="table-responsive">
+                <table className="table align-middle">
 
-                <thead className="table-dark">
-                  <tr>
-                    <th>ID</th>
-                    <th>Book</th>
-                    <th>User</th>
-                    <th>Issue Date</th>
-                    <th>Due Date</th>
-                    <th>Return Date</th>
-                    <th>Status</th>
-                    <th>Fine</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Book</th>
+                      <th>User</th>
+                      <th>Issue Date</th>
+                      <th>Due Date</th>
+                      <th>Return Date</th>
+                      <th>Status</th>
+                      <th>Fine</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
 
-                <tbody>
+                  <tbody>
 
-                  {issuedBooks.map((issue) => (
+                    {issuedBooks.map((issue) => (
 
-                    <tr key={issue.id}>
+                      <tr key={issue.id}>
 
-                      <td>{issue.id}</td>
+                        <td className="fw-bold">{issue.id}</td>
 
-                      <td>{issue.book?.title}</td>
+                        <td className="fw-semibold">{issue.book?.title}</td>
 
-                      <td>{issue.user?.name}</td>
+                        <td>{issue.user?.name}</td>
 
-                      <td>{issue.issueDate}</td>
+                        <td>{issue.issueDate}</td>
 
-                      <td>
+                        <td>
 
-                        {editingId === issue.id ? (
+                          {editingId === issue.id ? (
 
-                          <input
-                            type="date"
-                            className="form-control"
-                            value={newDueDate}
-                            onChange={(e) =>
-                              setNewDueDate(e.target.value)
-                            }
-                          />
+                            <input
+                              type="date"
+                              className="form-control form-control-sm"
+                              value={newDueDate}
+                              onChange={(e) =>
+                                setNewDueDate(e.target.value)
+                              }
+                            />
 
-                        ) : (
-
-                          issue.dueDate
-
-                        )}
-
-                      </td>
-
-                      <td>{issue.returnDate || "-"}</td>
-
-                      <td>
-                        {issue.status === "ISSUED" ? (
-                          (issue.fine > 0 || (issue.dueDate && new Date(issue.dueDate) < new Date(new Date().setHours(0,0,0,0)))) ? (
-                            <span className="badge bg-danger">OVERDUE</span>
                           ) : (
-                            <span className="badge bg-warning text-dark">ISSUED</span>
-                          )
-                        ) : (
-                          <span className="badge bg-success">RETURNED</span>
-                        )}
-                      </td>
 
-                      <td>
-                        {issue.fine > 0 ? (
-                          <span className="text-danger fw-bold">₹ {issue.fine}</span>
-                        ) : (
-                          <span className="text-success">₹ 0</span>
-                        )}
-                      </td>
+                            issue.dueDate
 
-                      <td>
+                          )}
 
-                        {issue.status === "ISSUED" && (
+                        </td>
 
-                          <>
-                            <button
-                              className="btn btn-success btn-sm me-2"
-                              onClick={() => handleReturn(issue.id)}
-                            >
-                              Return
-                            </button>
+                        <td>{issue.returnDate || "-"}</td>
 
-                            {editingId === issue.id ? (
-
-                              <>
-                                <button
-                                  className="btn btn-primary btn-sm me-2"
-                                  onClick={handleSave}
-                                >
-                                  Save
-                                </button>
-
-                                <button
-                                  className="btn btn-secondary btn-sm"
-                                  onClick={() => setEditingId(null)}
-                                >
-                                  Cancel
-                                </button>
-
-                              </>
-
+                        <td>
+                          {issue.status === "ISSUED" ? (
+                            (issue.fine > 0 || (issue.dueDate && new Date(issue.dueDate) < new Date(new Date().setHours(0,0,0,0)))) ? (
+                              <span className="badge bg-danger">OVERDUE</span>
                             ) : (
+                              <span className="badge bg-warning text-dark">ISSUED</span>
+                            )
+                          ) : (
+                            <span className="badge bg-success">RETURNED</span>
+                          )}
+                        </td>
 
+                        <td>
+                          {issue.fine > 0 ? (
+                            <span className="text-danger fw-bold">₹ {issue.fine}</span>
+                          ) : (
+                            <span className="text-success fw-bold">₹ 0</span>
+                          )}
+                        </td>
+
+                        <td>
+
+                          {issue.status === "ISSUED" && (
+
+                            <div className="d-flex gap-1 flex-wrap">
                               <button
-                                className="btn btn-warning btn-sm"
-                                onClick={() => handleEdit(issue)}
+                                className="btn btn-success btn-sm"
+                                onClick={() => handleReturn(issue.id)}
                               >
-                                Edit Due Date
+                                <FaUndo /> Return
                               </button>
 
-                            )}
+                              {editingId === issue.id ? (
 
-                          </>
+                                <>
+                                  <button
+                                    className="btn btn-primary btn-sm"
+                                    onClick={handleSave}
+                                  >
+                                    Save
+                                  </button>
 
-                        )}
+                                  <button
+                                    className="btn btn-secondary btn-sm"
+                                    onClick={() => setEditingId(null)}
+                                  >
+                                    Cancel
+                                  </button>
 
-                        {issue.status === "RETURNED" && (
-                          <span className="text-success">
-                            ✓ Returned
-                          </span>
-                        )}
+                                </>
 
-                      </td>
+                              ) : (
 
-                    </tr>
+                                <button
+                                  className="btn btn-warning btn-sm"
+                                  onClick={() => handleEdit(issue)}
+                                >
+                                  <FaCalendarAlt /> Edit Due
+                                </button>
 
-                  ))}
+                              )}
 
-                </tbody>
+                            </div>
 
-              </table>
+                          )}
+
+                          {issue.status === "RETURNED" && (
+                            <span className="text-success fw-bold d-inline-flex align-items-center gap-1">
+                              <FaCheckCircle /> Returned
+                            </span>
+                          )}
+
+                        </td>
+
+                      </tr>
+
+                    ))}
+
+                  </tbody>
+
+                </table>
+              </div>
 
             )}
 

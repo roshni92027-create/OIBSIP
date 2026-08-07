@@ -6,6 +6,7 @@ import {
 } from "../services/ReservationService";
 import Navbar from "../components/Navbar";
 import { toast, ToastContainer } from "react-toastify";
+import { FaBookmark, FaBook, FaUser, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 
 function ReservationPage() {
   const [bookId, setBookId] = useState("");
@@ -81,122 +82,140 @@ function ReservationPage() {
       <Navbar />
       <ToastContainer position="top-right" autoClose={3000} />
 
-      <div className="container mt-4">
+      <div className="container mt-4 mb-5">
 
-        <div className="card shadow mb-4">
+        {/* Reserve Form Card */}
+        <div className="card glass-card shadow-lg mb-4" style={{ borderRadius: "26px" }}>
 
-          <div className="card-header bg-primary text-white">
-            <h3>📚 Reserve Book</h3>
+          <div className="card-header card-header-gradient d-flex align-items-center gap-2 py-3">
+            <FaBookmark className="fs-4 text-white" />
+            <h3 className="mb-0 fs-4 fw-bold">Reserve Library Book</h3>
           </div>
 
-          <div className="card-body">
+          <div className="card-body p-4">
 
-            <input
-              type="number"
-              className="form-control mb-3"
-              placeholder="Enter Book ID"
-              value={bookId}
-              onChange={(e) => setBookId(e.target.value)}
-            />
+            <div className="row g-3">
+              <div className="col-md-6">
+                <label className="form-label fw-semibold text-secondary">
+                  <FaBook className="me-2" /> Book ID
+                </label>
+                <input
+                  type="number"
+                  className="form-control"
+                  placeholder="Enter Book ID"
+                  value={bookId}
+                  onChange={(e) => setBookId(e.target.value)}
+                />
+              </div>
 
-            <input
-              type="number"
-              className="form-control mb-3"
-              placeholder="Enter User ID"
-              value={userId}
-              onChange={(e) => setUserId(e.target.value)}
-            />
+              <div className="col-md-6">
+                <label className="form-label fw-semibold text-secondary">
+                  <FaUser className="me-2" /> User ID
+                </label>
+                <input
+                  type="number"
+                  className="form-control"
+                  placeholder="Enter User ID"
+                  value={userId}
+                  onChange={(e) => setUserId(e.target.value)}
+                />
+              </div>
+            </div>
 
             <button
-              className="btn btn-success"
+              className="btn btn-purple-pink mt-3 fw-bold px-4"
               onClick={handleReserve}
             >
-              Reserve Book
+              <FaCheckCircle /> Reserve Book
             </button>
 
           </div>
 
         </div>
 
-        <div className="card shadow">
+        {/* Reservations List Card */}
+        <div className="card glass-card shadow-lg" style={{ borderRadius: "26px" }}>
 
-          <div className="card-header bg-dark text-white">
-            <h3>Reservation List</h3>
+          <div className="card-header card-header-gradient d-flex align-items-center gap-2 py-3">
+            <FaBookmark className="fs-4 text-white" />
+            <h3 className="mb-0 fs-4 fw-bold">Reservation List</h3>
           </div>
 
-          <div className="card-body">
+          <div className="card-body p-4">
 
-            <table className="table table-bordered table-hover">
+            <div className="table-responsive">
+              <table className="table align-middle">
 
-              <thead className="table-dark">
+                <thead>
 
-                <tr>
-                  <th>ID</th>
-                  <th>Book</th>
-                  <th>User</th>
-                  <th>Date</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-
-              </thead>
-
-              <tbody>
-
-                {reservations.length === 0 ? (
                   <tr>
-                    <td colSpan="6" className="text-center">
-                      No Reservations Found
-                    </td>
+                    <th>ID</th>
+                    <th>Book</th>
+                    <th>User</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
                   </tr>
-                ) : (
-                  reservations.map((reservation) => (
-                    <tr key={reservation.id}>
 
-                      <td>{reservation.id}</td>
+                </thead>
 
-                      <td>{reservation.book?.title}</td>
+                <tbody>
 
-                      <td>{reservation.user?.name}</td>
-
-                      <td>{reservation.reservationDate}</td>
-
-                      <td>
-                        <span
-                          className={`badge ${
-                            reservation.status === "ACTIVE"
-                              ? "bg-success"
-                              : "bg-secondary"
-                          }`}
-                        >
-                          {reservation.status}
-                        </span>
+                  {reservations.length === 0 ? (
+                    <tr>
+                      <td colSpan="6" className="text-center py-4 text-muted">
+                        No Reservations Found
                       </td>
-
-                      <td>
-                        {reservation.status === "ACTIVE" ? (
-                          <button
-                            className="btn btn-danger btn-sm"
-                            onClick={() =>
-                              handleCancel(reservation.id)
-                            }
-                          >
-                            Cancel
-                          </button>
-                        ) : (
-                          <span className="text-muted">
-                            Cancelled
-                          </span>
-                        )}
-                      </td>
-
                     </tr>
-                  ))
-                )}
+                  ) : (
+                    reservations.map((reservation) => (
+                      <tr key={reservation.id}>
 
-              </tbody>
+                        <td className="fw-bold">{reservation.id}</td>
 
-            </table>
+                        <td className="fw-semibold">{reservation.book?.title}</td>
+
+                        <td>{reservation.user?.name}</td>
+
+                        <td>{reservation.reservationDate}</td>
+
+                        <td>
+                          <span
+                            className={`badge ${
+                              reservation.status === "ACTIVE"
+                                ? "bg-success"
+                                : "bg-secondary"
+                            }`}
+                          >
+                            {reservation.status}
+                          </span>
+                        </td>
+
+                        <td>
+                          {reservation.status === "ACTIVE" ? (
+                            <button
+                              className="btn btn-danger btn-sm"
+                              onClick={() =>
+                                handleCancel(reservation.id)
+                              }
+                            >
+                              <FaTimesCircle /> Cancel
+                            </button>
+                          ) : (
+                            <span className="text-muted">
+                              Cancelled
+                            </span>
+                          )}
+                        </td>
+
+                      </tr>
+                    ))
+                  )}
+
+                </tbody>
+
+              </table>
+            </div>
 
           </div>
 

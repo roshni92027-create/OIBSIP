@@ -8,6 +8,7 @@ import {
     ToastContainer,
     toast,
 } from "react-toastify";
+import { FaCommentAlt, FaTrash } from "react-icons/fa";
 
 function ContactMessages() {
 
@@ -18,45 +19,24 @@ function ContactMessages() {
     }, []);
 
     const loadMessages = async () => {
-
         try {
-
             const response = await getMessages();
-
             setMessages(response.data);
-
         } catch (error) {
-
             console.log(error);
-
             toast.error("Unable to load messages.");
-
         }
-
     };
 
     const handleDelete = async (id) => {
-
-        // if (!window.confirm("Delete this message?")) {
-        //     return;
-        // }
-
         try {
-
             await deleteMessage(id);
-
             toast.success("Message Deleted Successfully!");
-
             loadMessages();
-
         } catch (error) {
-
             console.log(error);
-
             toast.error("Delete Failed.");
-
         }
-
     };
 
     return (
@@ -68,103 +48,104 @@ function ContactMessages() {
                 autoClose={3000}
             />
 
-            <div className="container mt-4">
+            <div className="container mt-4 mb-5">
 
-                <div className="card shadow">
+                <div className="card glass-card shadow-lg" style={{ borderRadius: "26px" }}>
 
-                    <div className="card-header bg-dark text-white">
-
-                        <h3 className="mb-0">
-                            📩 Contact Messages
+                    <div className="card-header card-header-gradient d-flex align-items-center gap-2 py-3">
+                        <FaCommentAlt className="fs-4 text-white" />
+                        <h3 className="mb-0 fs-4 fw-bold">
+                            User Contact Messages
                         </h3>
-
                     </div>
 
-                    <div className="card-body">
+                    <div className="card-body p-4">
 
-                        <table className="table table-bordered table-striped table-hover">
+                        <div className="table-responsive">
+                            <table className="table align-middle">
 
-                            <thead className="table-dark">
-
-                                <tr>
-
-                                    <th>ID</th>
-
-                                    <th>Name</th>
-
-                                    <th>Email</th>
-
-                                    <th>Message</th>
-
-                                    <th>Date</th>
-
-                                    <th>Action</th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody>
-
-                                {messages.length === 0 ? (
+                                <thead>
 
                                     <tr>
 
-                                        <td
-                                            colSpan="6"
-                                            className="text-center"
-                                        >
-                                            No Messages Found
-                                        </td>
+                                        <th>ID</th>
+
+                                        <th>Name</th>
+
+                                        <th>Email</th>
+
+                                        <th>Message</th>
+
+                                        <th>Date</th>
+
+                                        <th>Action</th>
 
                                     </tr>
 
-                                ) : (
+                                </thead>
 
-                                    messages.map((message) => (
+                                <tbody>
 
-                                        <tr key={message.id}>
+                                    {messages.length === 0 ? (
 
-                                            <td>{message.id}</td>
+                                        <tr>
 
-                                            <td>{message.name}</td>
-
-                                            <td>{message.email}</td>
-
-                                            <td>{message.message}</td>
-
-                                            <td>
-
-                                                {message.createdAt
-                                                    ? new Date(
-                                                          message.createdAt
-                                                      ).toLocaleString()
-                                                    : "-"}
-
-                                            </td>
-
-                                            <td>
-
-                                                <button
-                                                    className="btn btn-danger btn-sm"
-                                                    onClick={() =>
-                                                        handleDelete(message.id)
-                                                    }
-                                                >
-                                                    Delete
-                                                </button>
-
+                                            <td
+                                                colSpan="6"
+                                                className="text-center py-4 text-muted"
+                                            >
+                                                No Messages Found
                                             </td>
 
                                         </tr>
 
-                                    ))
+                                    ) : (
 
-                                )}
+                                        messages.map((message) => (
 
-                            </tbody>
+                                            <tr key={message.id}>
 
-                        </table>
+                                                <td className="fw-bold">{message.id}</td>
+
+                                                <td className="fw-semibold">{message.name}</td>
+
+                                                <td>{message.email}</td>
+
+                                                <td>{message.message}</td>
+
+                                                <td>
+
+                                                    {message.createdAt
+                                                        ? new Date(
+                                                              message.createdAt
+                                                          ).toLocaleString()
+                                                        : "-"}
+
+                                                </td>
+
+                                                <td>
+
+                                                    <button
+                                                        className="btn btn-danger btn-sm"
+                                                        onClick={() =>
+                                                            handleDelete(message.id)
+                                                        }
+                                                    >
+                                                        <FaTrash /> Delete
+                                                    </button>
+
+                                                </td>
+
+                                            </tr>
+
+                                        ))
+
+                                    )}
+
+                                </tbody>
+
+                            </table>
+                        </div>
 
                     </div>
 
