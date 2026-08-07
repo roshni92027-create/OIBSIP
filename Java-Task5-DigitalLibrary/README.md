@@ -161,9 +161,15 @@ Java-Task5-DigitalLibrary
 
 ---
 
-## 📚 Books
+## 📚 Book Management
 
 ![Books](screenshots/books.png)
+
+---
+
+## ➕ Add Book
+
+![Add Book](screenshots/addbook.png)
 
 ---
 
@@ -189,10 +195,9 @@ Java-Task5-DigitalLibrary
 
 ![Contact](screenshots/contact.png)
 
-
 ---
 
-## 💬 Messages
+## 💬 Contact Messages
 
 ![Messages](screenshots/messages.png)
 
@@ -201,8 +206,6 @@ Java-Task5-DigitalLibrary
 ## 💰 Fine Management
 
 ![Fine Management](screenshots/fine-management.png)
-
----
 
 # 🚀 Installation
 
