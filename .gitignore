@@ -38,3 +38,5 @@ target/
 node_modules/
 .vite/
 dist/
+out/
+

@@ -1,80 +1,315 @@
-# 🏦 ATM Interface
+# 🏧 ATM Interface — Java Console Banking System
 
-A console-based **ATM Interface** developed using **Java** as part of the **Oasis Infobyte Internship Program (OIBSIP)**.
+<p align="center">
+  <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java"/>
+  <img src="https://img.shields.io/badge/Platform-Console%20%2F%20CLI-blue?style=for-the-badge&logo=gnubash&logoColor=white" alt="Platform"/>
+  <img src="https://img.shields.io/badge/Architecture-OOP%20Design-success?style=for-the-badge" alt="OOP"/>
+  <img src="https://img.shields.io/badge/Task-OIBSIP%20Java%20Development-purple?style=for-the-badge" alt="OIBSIP"/>
+  <img src="https://img.shields.io/badge/Status-Completed-brightgreen?style=for-the-badge" alt="Status"/>
+</p>
 
-This project simulates a basic ATM banking system where users can authenticate using a User ID and PIN and perform operations such as checking balance, depositing money, withdrawing money, transferring money, and viewing transaction history.
+<p align="center">
+  A robust, modular, and secure console-based <strong>Automated Teller Machine (ATM) Simulation System</strong> developed in <strong>Java</strong> as part of the <strong>Oasis Infobyte Internship Program (OIBSIP)</strong>.
+</p>
 
-The application is designed using **Object-Oriented Programming (OOP)** principles and separates responsibilities across multiple Java classes.
+---
+
+## 📑 Table of Contents
+
+- [📌 Project Overview](#-project-overview)
+- [🎯 Objectives](#-objectives)
+- [✨ Key Features](#-key-features)
+- [🏗️ System Architecture & Class Design](#️-system-architecture--class-design)
+  - [Class Hierarchy & Responsibilities](#class-hierarchy--responsibilities)
+  - [UML Class Diagram](#uml-class-diagram)
+- [🔑 Pre-Configured Test Accounts](#-pre-configured-test-accounts)
+- [📸 Visual Showcase & Screenshots](#-visual-showcase--screenshots)
+- [📂 Project Directory Structure](#-project-directory-structure)
+- [⚙️ Prerequisites & Setup Guide](#️-prerequisites--setup-guide)
+  - [Compiling and Running via Terminal](#1-compiling-and-running-via-terminal)
+  - [Running in an IDE](#2-running-in-an-ide-intellij-idea--eclipse--vs-code)
+- [🧠 OOP Concepts & Design Highlights](#-oop-concepts--design-highlights)
+- [🔮 Future Enhancements](#-future-enhancements)
+- [👩‍💻 Author & Acknowledgements](#-author--acknowledgements)
 
 ---
 
 ## 📌 Project Overview
 
-The ATM Interface is a Java console application that provides a simple simulation of an ATM banking environment.
+The **ATM Interface** project simulates an enterprise ATM environment where bank customers can securely authenticate and execute standard banking transactions through an intuitive command-line interface. 
 
-After successful authentication, a user can access an ATM menu containing the following operations:
-
-1. Transaction History
-2. Withdraw
-3. Deposit
-4. Transfer
-5. Check Balance
-6. Quit
-
-The application maintains account information and transaction history during the execution of the program.
-
-Each transaction records:
-
-- Transaction type
-- Transaction amount
-- Description
-- Date and time
-
-The project also includes input validation and handles several invalid-operation scenarios such as incorrect login credentials, invalid amounts, insufficient funds, invalid recipient accounts, and transfers to the same account.
+Built using core **Object-Oriented Programming (OOP)** principles, the application decouples the user interface and session flow from domain business logic, data models, and account repositories. Every financial action updates account balances in real time and automatically creates formatted, timestamped transaction audit logs.
 
 ---
 
-# 🎯 Project Objective
+## 🎯 Objectives
 
-The main objectives of this project are:
-
-- To build a functional ATM simulation using Java.
-- To implement user authentication.
-- To practice Object-Oriented Programming concepts.
-- To manage account information using Java classes and objects.
-- To implement banking operations such as deposit, withdrawal, and transfer.
-- To maintain transaction history.
-- To implement input validation.
-- To practice Java collections such as `ArrayList`.
-- To use `LocalDateTime` for recording transaction timestamps.
-- To organize a Java project into multiple classes with clearly defined responsibilities.
+- **Simulate Real-World Banking:** Provide an end-to-end ATM experience including authentication, cash deposits, withdrawals, fund transfers, and mini statements.
+- **Implement Clean OOP Architecture:** Demonstrate encapsulation, modularity, and separation of concerns across dedicated classes.
+- **Robust Exception & Input Handling:** Defend against invalid inputs (e.g. non-numeric strings, negative amounts, overdrawing, self-transfers).
+- **Audit Trail & Timestamps:** Maintain an in-memory chronological ledger using Java's modern `java.time` Date & Time API.
 
 ---
 
-# ✨ Features
+## ✨ Key Features
 
-## 🔐 1. User Authentication
-
-The application requires the user to enter:
-
-- User ID
-- PIN
-
-The credentials are checked against the accounts maintained by the `Bank` class.
-
-The application allows a maximum of **3 login attempts**.
-
-If all three attempts fail, the session is terminated.
+| Feature | Description |
+| :--- | :--- |
+| 🔐 **Secure Authentication** | User ID and PIN verification with a **3-attempt maximum** security policy before session lockout. |
+| 💰 **Balance Inquiry** | Instant display of real-time account balances formatted with currency precision (`₹0.00`). |
+| 📥 **Cash Deposit** | Real-time balance crediting with input verification and automatic ledger entry creation. |
+| 📤 **Cash Withdrawal** | Balance debit processing protected by real-time overdraft/insufficient funds checks. |
+| 🔄 **Account-to-Account Transfer** | Peer-to-peer fund transfers featuring recipient validation, self-transfer prevention, and dual-party transaction logging. |
+| 📜 **Transaction History Ledger** | Formatted mini-statement table showing transaction type, amount, description, and exact timestamp (`dd-MM-yyyy HH:mm:ss`). |
+| 🛡️ **Defensive Error Handling** | Gracefully handles non-numeric inputs (`NumberFormatException`), negative/zero values, and invalid menu choices without crashing. |
 
 ---
 
-## 💰 2. Check Balance
+## 🏗️ System Architecture & Class Design
 
-After successful login, the user can check the current account balance.
+### Class Hierarchy & Responsibilities
 
-The balance is displayed with two decimal places.
+The codebase follows a modular design pattern with 5 specialized classes:
 
-Example:
+1. **`Main.java` (Entry Point):** Bootstraps the application, instantiates the in-memory `Bank` repository, and launches the `ATM` engine.
+2. **`ATM.java` (Controller / Presentation Layer):** Manages user interactions, I/O streams, menu loops, input parsing, error messaging, and business workflow orchestration.
+3. **`Bank.java` (Data Repository Layer):** Manages the collection of bank accounts, pre-seeds sample customer profiles, and handles credential authentication and account lookup.
+4. **`Account.java` (Domain Model / Business Entity):** Encapsulates customer attributes (`userId`, `pin`, `name`, `balance`), maintains account-level transaction lists, and enforces deposit/withdrawal mutations.
+5. **`Transaction.java` (Audit Log Entity):** Immutable record capturing transaction details (`type`, `amount`, `description`, `dateTime`) with formatted date-time string output.
+
+### UML Class Diagram
+
+```mermaid
+classDiagram
+    class Main {
+        +main(String[] args)$ void
+    }
+
+    class ATM {
+        -Bank bank
+        -Scanner scanner
+        -Account currentAccount
+        +start() void
+        -login() boolean
+        -showMenu() void
+        -showTransactionHistory() void
+        -withdraw() void
+        -deposit() void
+        -transfer() void
+        -checkBalance() void
+        -readAmount(String message) double
+        -quit() void
+    }
+
+    class Bank {
+        -List~Account~ accounts
+        +findAccount(String userId) Account
+        +authenticate(String userId, String pin) Account
+        +getAccounts() List~Account~
+        -createSampleAccounts() void
+    }
+
+    class Account {
+        -String userId
+        -String pin
+        -String name
+        -double balance
+        -List~Transaction~ transactions
+        +getUserId() String
+        +getPin() String
+        +getName() String
+        +getBalance() double
+        +getTransactions() List~Transaction~
+        +deposit(double amount) void
+        +withdraw(double amount) boolean
+        +addTransaction(Transaction transaction) void
+    }
+
+    class Transaction {
+        -String type
+        -double amount
+        -String description
+        -LocalDateTime dateTime
+        +getType() String
+        +getAmount() double
+        +getDescription() String
+        +getDateTime() LocalDateTime
+        +getFormattedDateTime() String
+        +toString() String
+    }
+
+    Main ..> Bank : creates
+    Main ..> ATM : creates & starts
+    ATM o--> Bank : interacts with
+    ATM o--> Account : manages active session
+    Bank *--> Account : maintains list of
+    Account *--> Transaction : stores history of
+```
+
+---
+
+## 🔑 Pre-Configured Test Accounts
+
+The `Bank` class comes pre-seeded with sample customer accounts for demonstration and testing:
+
+| User ID | PIN | Account Holder | Initial Balance | Permitted Actions |
+| :--- | :---: | :--- | :---: | :--- |
+| `user01` | `1234` | **Roshni** | ₹10,000.00 | Full Access (Withdraw, Deposit, Transfer, Inquiry) |
+| `user02` | `5678` | **Rahul** | ₹15,000.00 | Full Access (Recipient for peer transfer testing) |
+| `user03` | `2468` | **Priya** | ₹20,000.00 | Full Access (Recipient for peer transfer testing) |
+
+---
+
+## 📸 Visual Showcase & Screenshots
+
+### 1. User Authentication & Security
+
+| Successful Login | Security Policy (3 Failed Attempts) |
+| :---: | :---: |
+| <img src="screenshots/login.png" alt="Login Success" width="450"/> | <img src="screenshots/Invalid-login.png" alt="Invalid Login Handling" width="450"/> |
+| *Prompts for User ID & PIN with greeting* | *Locks session after 3 consecutive failed attempts* |
+
+---
+
+### 2. Main Dashboard & Balance Inquiry
+
+| Interactive ATM Menu | Real-Time Balance Inquiry |
+| :---: | :---: |
+| <img src="screenshots/menu.png" alt="ATM Menu" width="450"/> | <img src="screenshots/check-balance.png" alt="Check Balance" width="450"/> |
+| *6-option interactive command menu* | *Precise formatted currency balance display* |
+
+---
+
+### 3. Banking Transactions
+
+| Cash Deposit | Cash Withdrawal |
+| :---: | :---: |
+| <img src="screenshots/deposit.png" alt="Deposit" width="450"/> | <img src="screenshots/withdrawal.png" alt="Withdrawal" width="450"/> |
+| *Validates deposit amount & credits balance* | *Verifies available balance before processing* |
+
+---
+
+### 4. Fund Transfers & Transaction Ledger
+
+| Inter-Account Transfer | Formatted Transaction History |
+| :---: | :---: |
+| <img src="screenshots/transfer.png" alt="Transfer" width="450"/> | <img src="screenshots/transaction-history.png" alt="Transaction History" width="450"/> |
+| *Peer-to-peer transfer with receiver verification* | *Complete timestamped statement with ledger logs* |
+
+---
+
+### 5. Session Termination
+
+<p align="center">
+  <img src="screenshots/Quit.png" alt="Exit Session" width="450"/>
+  <br/>
+  <em>Graceful session termination and farewell message</em>
+</p>
+
+---
+
+## 📂 Project Directory Structure
 
 ```text
-Current balance: ₹10000.00
+ATM-Interface/
+├── .gitignore                  # Git ignore configuration
+├── README.md                   # Detailed project documentation
+├── screenshots/                # Application demonstration screenshots
+│   ├── check-balance.png
+│   ├── deposit.png
+│   ├── Invalid-login.png
+│   ├── login.png
+│   ├── menu.png
+│   ├── Quit.png
+│   ├── transaction-history.png
+│   ├── transfer.png
+│   └── withdrawal.png
+└── src/
+    └── com/
+        └── roshni/
+            └── atm/
+                ├── ATM.java          # ATM console interface & controller
+                ├── Account.java      # Customer account entity & business rules
+                ├── Bank.java         # In-memory bank repository & authentication
+                ├── Main.java         # Application entry point
+                └── Transaction.java  # Transaction audit entity with timestamps
+```
+
+---
+
+## ⚙️ Prerequisites & Setup Guide
+
+### System Requirements
+- **Java Development Kit (JDK):** Version 8 or higher (Tested on JDK 17 / JDK 21 / JDK 25)
+- **Operating System:** Windows / macOS / Linux
+- **Terminal / IDE:** Command Prompt, Terminal, IntelliJ IDEA, Eclipse, or VS Code
+
+---
+
+### 1. Compiling and Running via Terminal
+
+1. **Navigate to the `ATM-Interface` folder:**
+   ```bash
+   cd "ATM-Interface"
+   ```
+
+2. **Compile the Java source files into an `out` directory:**
+   ```bash
+   javac -d out src/com/roshni/atm/*.java
+   ```
+
+3. **Run the application:**
+   ```bash
+   java -cp out com.roshni.atm.Main
+   ```
+
+---
+
+### 2. Running in an IDE (IntelliJ IDEA / Eclipse / VS Code)
+
+- **IntelliJ IDEA:**
+  1. Open IntelliJ IDEA and select **Open** &rarr; Select the `ATM-Interface` directory (or root `OIBSIP`).
+  2. Ensure the Project SDK is configured under **File** &rarr; **Project Structure** &rarr; **Project SDK** (JDK 8+).
+  3. Navigate to `src/com/roshni/atm/Main.java`.
+  4. Right-click and select **Run 'Main.main()'** (or press `Shift + F10`).
+
+- **VS Code:**
+  1. Open the folder in VS Code.
+  2. Install the **Extension Pack for Java**.
+  3. Open `Main.java` and click the **Run** button above `public static void main`.
+
+---
+
+## 🧠 OOP Concepts & Design Highlights
+
+- **Encapsulation:** All sensitive account attributes (`userId`, `pin`, `balance`, `transactions`) are strictly `private`, accessible only via controlled public getters and business methods.
+- **Single Responsibility Principle (SRP):** Each class owns a single responsibility:
+  - `ATM` handles user I/O and flow control.
+  - `Bank` manages account storage and authentication.
+  - `Account` enforces transaction rules (e.g. balance checks).
+  - `Transaction` handles audit formatting.
+- **Composition & Association:** `Bank` manages a collection of `Account` objects, and each `Account` owns a historical list of `Transaction` records.
+- **Defensive Programming:** Implements input sanitation and handles exceptions (`NumberFormatException`) to prevent unexpected crashes during invalid input entry.
+- **Modern Date-Time API:** Utilizes `java.time.LocalDateTime` and `java.time.format.DateTimeFormatter` for thread-safe, human-readable transaction timestamps (`dd-MM-yyyy HH:mm:ss`).
+
+---
+
+## 🔮 Future Enhancements
+
+- [ ] **Persistent Database Storage:** Integrate MySQL / PostgreSQL via JDBC or Hibernate for durable data persistence.
+- [ ] **Graphical User Interface (GUI):** Build a modern desktop UI using JavaFX or Swing.
+- [ ] **Security Upgrades:** Implement BCrypt PIN hashing and One-Time Password (OTP) two-factor authentication.
+- [ ] **Multi-Currency Support:** Add dynamic currency conversion for international transactions.
+- [ ] **PIN Management:** Enable users to change and reset their security PIN directly from the ATM menu.
+
+---
+
+## 👩‍💻 Author & Acknowledgements
+
+- **Developer:** Roshni Singh ([@roshni-920](https://github.com/roshni-920))
+- **Internship Program:** [Oasis Infobyte](https://oasisinfobyte.com/) — **OIBSIP (Oasis Infobyte Summer Internship Program)**
+- **Domain:** Java Development
+
+<p align="center">
+  <i>Developed with ❤️ as part of the Oasis Infobyte Java Development Internship.</i>
+</p>
