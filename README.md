@@ -23,7 +23,7 @@
   - [Class Hierarchy & Responsibilities](#class-hierarchy--responsibilities)
   - [UML Class Diagram](#uml-class-diagram)
 - [🔑 Pre-Configured Test Accounts](#-pre-configured-test-accounts)
-- [📸 Visual Showcase & Screenshots](#-visual-showcase--screenshots)
+- [📸 Application Screenshots](#-application-screenshots)
 - [📂 Project Directory Structure](#-project-directory-structure)
 - [⚙️ Prerequisites & Setup Guide](#️-prerequisites--setup-guide)
   - [Compiling and Running via Terminal](#1-compiling-and-running-via-terminal)
@@ -161,53 +161,50 @@ The `Bank` class comes pre-seeded with sample customer accounts for demonstratio
 
 ---
 
-## 📸 Visual Showcase & Screenshots
+# 📸 Application Screenshots
 
-### 1. User Authentication & Security
-
-| Successful Login | Security Policy (3 Failed Attempts) |
-| :---: | :---: |
-| ![Login Success](https://raw.githubusercontent.com/roshni92027-create/OIBSIP/main/ATM-Interface/screenshots/login.png) | ![Invalid Login Handling](https://raw.githubusercontent.com/roshni92027-create/OIBSIP/main/ATM-Interface/screenshots/Invalid-login.png) |
-| *Prompts for User ID & PIN with greeting* | *Locks session after 3 consecutive failed attempts* |
+## 🔐 1. User Authentication (Login)
+![User Login](ATM-Interface/screenshots/login.png)
 
 ---
 
-### 2. Main Dashboard & Balance Inquiry
-
-| Interactive ATM Menu | Real-Time Balance Inquiry |
-| :---: | :---: |
-| ![ATM Menu](https://raw.githubusercontent.com/roshni92027-create/OIBSIP/main/ATM-Interface/screenshots/menu.png) | ![Check Balance](https://raw.githubusercontent.com/roshni92027-create/OIBSIP/main/ATM-Interface/screenshots/check-balance.png) |
-| *6-option interactive command menu* | *Precise formatted currency balance display* |
+## ⚠️ 2. Security Lockout (3 Failed Login Attempts)
+![Invalid Login Handling](ATM-Interface/screenshots/Invalid-login.png)
 
 ---
 
-### 3. Banking Transactions
-
-| Cash Deposit | Cash Withdrawal |
-| :---: | :---: |
-| ![Deposit](https://raw.githubusercontent.com/roshni92027-create/OIBSIP/main/ATM-Interface/screenshots/deposit.png) | ![Withdrawal](https://raw.githubusercontent.com/roshni92027-create/OIBSIP/main/ATM-Interface/screenshots/withdrawal.png) |
-| *Validates deposit amount & credits balance* | *Verifies available balance before processing* |
+## 🖥️ 3. Main ATM Menu Dashboard
+![ATM Menu](ATM-Interface/screenshots/menu.png)
 
 ---
 
-### 4. Fund Transfers & Transaction Ledger
-
-| Inter-Account Transfer | Formatted Transaction History |
-| :---: | :---: |
-| ![Transfer](https://raw.githubusercontent.com/roshni92027-create/OIBSIP/main/ATM-Interface/screenshots/transfer.png) | ![Transaction History](https://raw.githubusercontent.com/roshni92027-create/OIBSIP/main/ATM-Interface/screenshots/transaction-history.png) |
-| *Peer-to-peer transfer with receiver verification* | *Complete timestamped statement with ledger logs* |
+## 💰 4. Balance Inquiry
+![Check Balance](ATM-Interface/screenshots/check-balance.png)
 
 ---
 
-### 5. Session Termination
+## 📥 5. Cash Deposit
+![Cash Deposit](ATM-Interface/screenshots/deposit.png)
 
-<div align="center">
+---
 
-![Exit Session](https://raw.githubusercontent.com/roshni92027-create/OIBSIP/main/ATM-Interface/screenshots/Quit.png)
+## 📤 6. Cash Withdrawal
+![Cash Withdrawal](ATM-Interface/screenshots/withdrawal.png)
 
-*Graceful session termination and farewell message*
+---
 
-</div>
+## 🔄 7. Account-to-Account Money Transfer
+![Fund Transfer](ATM-Interface/screenshots/transfer.png)
+
+---
+
+## 📜 8. Transaction History Ledger
+![Transaction History](ATM-Interface/screenshots/transaction-history.png)
+
+---
+
+## 🚪 9. Quit & Session Termination
+![Exit](ATM-Interface/screenshots/Quit.png)
 
 ---
 
