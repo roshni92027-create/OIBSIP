@@ -36,9 +36,9 @@
 
 ## 📌 Project Overview
 
-The **ATM Interface** project simulates an enterprise ATM environment where bank customers can securely authenticate and execute standard banking transactions through an intuitive command-line interface. 
+The **ATM Interface** project simulates an enterprise ATM banking environment where users can authenticate securely using a User ID and PIN and perform essential banking operations through an intuitive console menu.
 
-Built using core **Object-Oriented Programming (OOP)** principles, the application decouples the user interface and session flow from domain business logic, data models, and account repositories. Every financial action updates account balances in real time and automatically creates formatted, timestamped transaction audit logs.
+Built using core **Object-Oriented Programming (OOP)** principles, the application separates responsibilities across dedicated classes for business logic, data models, repository storage, and user interactions. Every financial action updates account balances in real time and automatically creates formatted, timestamped transaction audit logs.
 
 ---
 
@@ -166,7 +166,7 @@ The `Bank` class comes pre-seeded with sample customer accounts for demonstratio
 
 | Successful Login | Security Policy (3 Failed Attempts) |
 | :---: | :---: |
-| <img src="screenshots/login.png" alt="Login Success" width="450"/> | <img src="screenshots/Invalid-login.png" alt="Invalid Login Handling" width="450"/> |
+| ![Login Success](https://raw.githubusercontent.com/roshni92027-create/OIBSIP/main/ATM-Interface/screenshots/login.png) | ![Invalid Login Handling](https://raw.githubusercontent.com/roshni92027-create/OIBSIP/main/ATM-Interface/screenshots/Invalid-login.png) |
 | *Prompts for User ID & PIN with greeting* | *Locks session after 3 consecutive failed attempts* |
 
 ---
@@ -175,7 +175,7 @@ The `Bank` class comes pre-seeded with sample customer accounts for demonstratio
 
 | Interactive ATM Menu | Real-Time Balance Inquiry |
 | :---: | :---: |
-| <img src="screenshots/menu.png" alt="ATM Menu" width="450"/> | <img src="screenshots/check-balance.png" alt="Check Balance" width="450"/> |
+| ![ATM Menu](https://raw.githubusercontent.com/roshni92027-create/OIBSIP/main/ATM-Interface/screenshots/menu.png) | ![Check Balance](https://raw.githubusercontent.com/roshni92027-create/OIBSIP/main/ATM-Interface/screenshots/check-balance.png) |
 | *6-option interactive command menu* | *Precise formatted currency balance display* |
 
 ---
@@ -184,7 +184,7 @@ The `Bank` class comes pre-seeded with sample customer accounts for demonstratio
 
 | Cash Deposit | Cash Withdrawal |
 | :---: | :---: |
-| <img src="screenshots/deposit.png" alt="Deposit" width="450"/> | <img src="screenshots/withdrawal.png" alt="Withdrawal" width="450"/> |
+| ![Deposit](https://raw.githubusercontent.com/roshni92027-create/OIBSIP/main/ATM-Interface/screenshots/deposit.png) | ![Withdrawal](https://raw.githubusercontent.com/roshni92027-create/OIBSIP/main/ATM-Interface/screenshots/withdrawal.png) |
 | *Validates deposit amount & credits balance* | *Verifies available balance before processing* |
 
 ---
@@ -193,18 +193,20 @@ The `Bank` class comes pre-seeded with sample customer accounts for demonstratio
 
 | Inter-Account Transfer | Formatted Transaction History |
 | :---: | :---: |
-| <img src="screenshots/transfer.png" alt="Transfer" width="450"/> | <img src="screenshots/transaction-history.png" alt="Transaction History" width="450"/> |
+| ![Transfer](https://raw.githubusercontent.com/roshni92027-create/OIBSIP/main/ATM-Interface/screenshots/transfer.png) | ![Transaction History](https://raw.githubusercontent.com/roshni92027-create/OIBSIP/main/ATM-Interface/screenshots/transaction-history.png) |
 | *Peer-to-peer transfer with receiver verification* | *Complete timestamped statement with ledger logs* |
 
 ---
 
 ### 5. Session Termination
 
-<p align="center">
-  <img src="screenshots/Quit.png" alt="Exit Session" width="450"/>
-  <br/>
-  <em>Graceful session termination and farewell message</em>
-</p>
+<div align="center">
+
+![Exit Session](https://raw.githubusercontent.com/roshni92027-create/OIBSIP/main/ATM-Interface/screenshots/Quit.png)
+
+*Graceful session termination and farewell message*
+
+</div>
 
 ---
 
@@ -306,7 +308,7 @@ ATM-Interface/
 
 ## 👩‍💻 Author & Acknowledgements
 
-- **Developer:** Roshni Singh ([@roshni-920](https://github.com/roshni-920))
+- **Developer:** Roshni Singh ([@roshni92027-create](https://github.com/roshni92027-create))
 - **Internship Program:** [Oasis Infobyte](https://oasisinfobyte.com/) — **OIBSIP (Oasis Infobyte Summer Internship Program)**
 - **Domain:** Java Development
 
