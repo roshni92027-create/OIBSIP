@@ -1,32 +1,34 @@
 # 🏦 ATM Interface
 
-A console-based ATM Interface developed using **Java** as part of the **Oasis Infobyte Internship Program (OIBSIP)**.
+A console-based **ATM Interface** developed using **Java** as part of the **Oasis Infobyte Internship Program (OIBSIP)**.
 
-The application simulates common ATM operations such as user authentication, balance inquiry, cash deposit, withdrawal, money transfer, and transaction history.
+The application simulates common ATM and banking operations through an interactive console-based interface.
 
 ---
 
 ## 📌 Project Overview
 
-The ATM Interface provides a simple and interactive banking experience through a Java console application.
+The ATM Interface is a Java-based banking simulation that allows users to securely log in using their User ID and PIN and perform various banking operations.
 
-Users can securely log in using their **User ID and PIN** and perform different banking operations.
+The project focuses on applying **Object-Oriented Programming (OOP)** concepts, data handling, validation, and transaction management in Java.
 
 ---
 
 ## ✨ Features
 
-- 🔐 User Login Authentication
-- 💰 Check Account Balance
-- 💵 Deposit Money
-- 💸 Withdraw Money
-- 🔄 Transfer Money
-- 📜 View Transaction History
-- 🚪 Secure Logout / Exit
-- ⚠️ Invalid Login Handling
-- 🔒 Failed Login Attempt Limit
-- 🏦 Bank and Account Management
-- 🧾 Transaction Recording
+- 🔐 User ID and PIN authentication
+- 🚫 Maximum login attempt limit
+- 💰 Check account balance
+- 💵 Deposit money
+- 💸 Withdraw money
+- 🔄 Transfer money between accounts
+- 📜 View transaction history
+- 🕒 Transaction date and time recording
+- ⚠️ Invalid amount validation
+- 💳 Insufficient funds validation
+- 🔎 Transfer recipient validation
+- 🚪 Quit / Exit option
+- 🏦 Bank and account management
 
 ---
 
@@ -34,10 +36,10 @@ Users can securely log in using their **User ID and PIN** and perform different 
 
 - **Java**
 - **Object-Oriented Programming (OOP)**
-- Java Collections
-- Exception Handling
-- IntelliJ IDEA
-- Git & GitHub
+- **ArrayList / Java Collections**
+- **Exception Handling**
+- **IntelliJ IDEA**
+- **Git & GitHub**
 
 ---
 
@@ -69,4 +71,4 @@ ATM-Interface/
 │
 ├── .gitignore
 └── README.md
-0
+
